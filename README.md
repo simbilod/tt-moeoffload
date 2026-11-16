@@ -1,8 +1,7 @@
 # tt-moeoffload
 
-| :warning: Work in progress |
-|:----------------------------|
-| This project is currently a limited work-in-progress; it is publicized in case the custom Tenstorrent kernels are useful to others  |
+> [!WARNING]  
+> This project is currently a limited work-in-progress; it is publicized in case the custom Tenstorrent kernels are useful to others!
 
 A MoE expert-offloading inference engine for a Tenstorrent Blackhole p150 card: the card runs the model's layers, and
 the routed experts run on the host's CPU, on the card, or split between them. It runs as the engine of a
@@ -10,6 +9,9 @@ Strata-lineage API server (it speaks their `strata --serve` line protocol), so t
 chat template, tool calls and streaming work unchanged: Strata's server for Flash-Next, project-maya's for GLM.
 
 ## Models and quantizations
+
+> [!NOTE]  
+> More models, quantizations, and features (e.g. SSD offloading) would broaden usability -- contributions welcome!
 
 | Model | Tested GGUF (pinned in pins.json) | Other GGUFs the engine takes | Context |
 | --- | --- | --- | --- |
