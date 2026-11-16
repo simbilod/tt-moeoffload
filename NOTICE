@@ -1,0 +1,42 @@
+tt-moeoffload builds on other projects. Their sources are not vendored in this repository: tt/env/setup.sh fetches them
+at the commits in pins.json into third_party/, and the lane and spec libraries are built from those checkouts.
+
+Code derived from other projects, under their licenses (the full texts in LICENSES/; each file says so where the
+derived code is):
+
+- tt/cpulane/experts.cpp: from ggml-cpu (the x86 helpers, the AVX2 vec_dot of Q8_0, IQ4_NL, IQ4_XS and Q5_K, and
+  quantize_row_q8_K_ref in AVX-512), Copyright (c) 2023-2026 The ggml authors, MIT License (LICENSES/ggml-MIT.txt);
+  and from Strata (src/kernels/cpu/iq_avx512.cpp's IQ3_S decode, row dot and gate|up rows in Xolotl's form with the
+  SwiGLU clamp; native_expert.cpp's iq512_supported), Copyright (c) 2026 Niko1221 and the Strata contributors, MIT
+  License (LICENSES/Strata-MIT.txt).
+- tt/cpulane/iq3s_vbmi.h: from Strata's src/kernels/cpu/iq_avx512.cpp in the form its fork Xolotl
+  (https://github.com/Indras-Mirror/Xolotl) had it, the SwiGLU clamp included; Copyright (c) 2026 Niko1221 and the
+  Strata contributors (Xolotl's license is the same text), MIT License (LICENSES/Strata-MIT.txt).
+- tt/cpulane/host_loop.cpp: introselect, ported from NumPy 1.26 (numpy/core/src/npysort/selection.cpp), Copyright (c)
+  2005-2023, NumPy Developers, BSD 3-Clause License (LICENSES/numpy-BSD-3-Clause.txt).
+- tools/llama/corpus.py (part B's session format, from tools/agent_turns_bench.py), tt/spec/strata_spec.py
+  (StrataWindow, generate.cpp's window rules restated), tt/spec/mtp.py (the Q8_0 and Q2_0 dequantizations, from
+  tools/mtp_pack.py): from Strata, Copyright (c) 2026 Niko1221 and the Strata contributors, MIT License
+  (LICENSES/Strata-MIT.txt).
+- tt/flashnext/g2_layers.py and tt/glm/g2_layers.py (DramMM: models/tt_transformers/tt/model_config.py's DRAM-sharded
+  decode matmul recipe) and tt/kernels/socket_loopback.cpp (noc_write_page_chunked: write_page_to_pcie of ttnn's
+  send_async_d2h kernel): from tt-metal, Copyright 2026 Tenstorrent USA, Inc., Apache License 2.0
+  (LICENSES/tt-metal-Apache-2.0.txt), modified as each file's comment says.
+
+Used, not copied:
+
+- Strata (https://github.com/Niko1221/Strata), MIT License: the CPU lane links its AVX-512 i-quant rows;
+  tt/spec/spec_capi.cpp wraps its speculation sources (src/spec); prepare runs its MTP and tokenizer tools; its API
+  server serves Flash-Next.
+- ggml / llama.cpp (https://github.com/ggml-org/llama.cpp), MIT License: the CPU lane links ggml-cpu; gguf-py reads
+  the models; tools/llama is built against it.
+- tt-metal / ttnn (https://github.com/tenstorrent/tt-metal), Apache License 2.0, Copyright 2026 Tenstorrent USA, Inc.:
+  the runtime image the engine runs in, and model code imported from its checkout at run time (models/demos,
+  models/experimental).
+- project-maya (https://github.com/mw00/project-maya), MIT License: its API server serves GLM; nothing of it is built
+  here.
+- The Python packages setup installs (tt/env/requirements.lock), each under its own license.
+
+Models: nothing derived from model weights is in this repository; prepare downloads the GGUFs pinned in pins.json, and
+their licenses bind whoever uses them. The GLM-5.3-Flash GGUF declares MIT (its base model:
+https://huggingface.co/zai-org/GLM-5.3-Flash). The Qwen3.8-Flash-Next GGUF declares none: see its upstream model card.

@@ -1,0 +1,5 @@
+# After a card reset (tt-smi -r re-enumerates the card and tt-kmd binds it again), put its IOMMU group back in DMA-FQ:
+# the bind event restarts tt-iommu-dmafq.service, whose script waits for tt-smi to release the card, then unbinds,
+# switches the group and binds again (that second bind restarts the unit once more; it exits, already DMA-FQ).
+# --no-block: the unit runs outside udev's worker, which would otherwise wait on the unbind it causes.
+ACTION=="bind", SUBSYSTEM=="pci", DRIVER=="tenstorrent", RUN+="/usr/bin/systemctl --no-block restart tt-iommu-dmafq.service"

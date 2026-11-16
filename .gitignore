@@ -1,0 +1,8 @@
+__pycache__/
+.pytest_cache/
+third_party/
+tt/cpulane/build/
+tt/spec/build/
+generated/
+tools/llama/build/
+.venv/

@@ -1,0 +1,11 @@
+[Unit]
+Description=Tenstorrent cards' IOMMU groups in DMA-FQ mode (tt-metal sockets need translated DMA)
+After=systemd-modules-load.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/tt-iommu-dmafq.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

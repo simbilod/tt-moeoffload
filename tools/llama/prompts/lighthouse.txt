@@ -1,0 +1,4 @@
+The old lighthouse stood at the edge of the cliff, its white paint peeling in long strips after decades of salt and wind. Every evening the keeper climbed the spiral stairs, counted the one hundred and twelve steps, and lit the lamp that warned the fishing boats away from the rocks below. Nobody in the village remembered a night when the light had failed.
+
+def keeper_steps(n):
+    return sum(range(1, n + 1))

@@ -1,0 +1,96 @@
+{
+  "llama_cpp": {
+    "repo": "https://github.com/ggml-org/llama.cpp",
+    "pr": 30817,
+    "commit": "b72050d03ae14bb3cb5138ecefab3f3f65157d31",
+    "used_for": "ggml-cpu for the CPU lane (static), gguf-py for reading GGUFs",
+    "pinned": "2026-10-20"
+  },
+  "strata": {
+    "repo": "https://github.com/Niko1221/Strata.git",
+    "commit": "c1ff07f1a1817594811c960039571c6e268fe89a",
+    "used_for": "src/kernels/cpu/iq_avx512.cpp and include/ (the CPU lane's rows), src/spec (the suffix drafter, draft policy), data/draft_vocab_*.bin, tools/ (MTP runtime files, the tokenizer), serve/server.py (the API server for Flash-Next), bench/profile_corpus.json (the census corpus's part A)",
+    "pinned": "2026-11-15"
+  },
+  "maya": {
+    "repo": "https://github.com/mw00/project-maya.git",
+    "commit": "c5842c5e5be0a96bfc264ec8e58e3fec9d7886a7",
+    "used_for": "the API server for GLM",
+    "pinned": "2026-11-15"
+  },
+  "tt_metalium": {
+    "image": "ghcr.io/tenstorrent/tt-metal/tt-metalium-ubuntu-22.04-release-amd64@sha256:547ec4e48e4dd215a3dd5a9abe03e44a4d2aba1b51045095f9842e9170e71616",
+    "tag": "latest-rc",
+    "ttnn": "0.81.0rc1",
+    "used_for": "the tt-metal/ttnn runtime the engine runs in",
+    "pinned": "2026-10-21"
+  },
+  "tt_metal": {
+    "repo": "https://github.com/tenstorrent/tt-metal",
+    "tag": "v0.81.0-rc1",
+    "commit": "18b718f8cc9c9f15ecec754e28489d1dc915dd81",
+    "used_for": "tt-metal's Python model code the engine imports; matches the image's ttnn",
+    "pinned": "2026-10-21"
+  },
+  "models": {
+    "flashnext": {
+      "repo": "unsloth/Qwen3.8-Flash-Next-GGUF",
+      "revision": "38bb39ee97821de2c9009abb7e93950eec396e66",
+      "quant": "UD-IQ4_XS",
+      "files": {
+        "UD-IQ4_XS/Qwen3.8-Flash-Next-UD-IQ4_XS-00001-of-00003.gguf": {
+          "sha256": "5ce89370720f8bf90890f439361282104c1aa1482d4013bb9a50923e758e71a4",
+          "size": 10946624,
+          "to": "qwen3.8-flash-next-ud-iq4xs/UD-IQ4_XS/Qwen3.8-Flash-Next-UD-IQ4_XS-00001-of-00003.gguf"
+        },
+        "UD-IQ4_XS/Qwen3.8-Flash-Next-UD-IQ4_XS-00002-of-00003.gguf": {
+          "sha256": "577a38a2392b40ca2193cea502e1d92f60b8cd370675d308e0ec21885d9daaa7",
+          "size": 49835229856,
+          "to": "qwen3.8-flash-next-ud-iq4xs/UD-IQ4_XS/Qwen3.8-Flash-Next-UD-IQ4_XS-00002-of-00003.gguf"
+        },
+        "UD-IQ4_XS/Qwen3.8-Flash-Next-UD-IQ4_XS-00003-of-00003.gguf": {
+          "sha256": "d4634e6d84f0ebb0940be15c90d3790bf6464e3dea3a1cddc567dc0e83ad8833",
+          "size": 43836407744,
+          "to": "qwen3.8-flash-next-ud-iq4xs/UD-IQ4_XS/Qwen3.8-Flash-Next-UD-IQ4_XS-00003-of-00003.gguf"
+        }
+      },
+      "used_for": "Qwen3.8-Flash-Next: the files the engine was validated on (to: the path under $TT_MOEOFFLOAD_DATA/models)",
+      "pinned": "2026-11-15"
+    },
+    "glm": {
+      "repo": "peasantsmith/GLM-5.3-Flash-Maya-GGUF",
+      "revision": "5ca1df1d2436bd1ab270b169c5ea6c47aad23641",
+      "quant": "Maya-L (IQ3_S mix)",
+      "files": {
+        "Maya-L/GLM-5.3-Flash-Maya-L-IQ3_S-00001-of-00004.gguf": {
+          "sha256": "c41aeaf3a3e0022150b7c355e7f4df6c92ba68c4794e3e827e02e56b54886b9e",
+          "size": 47718550176,
+          "to": "GLM-5.3-Flash Maya-L/GLM-5.3-Flash-Maya-L-IQ3_S-00001-of-00004.gguf"
+        },
+        "Maya-L/GLM-5.3-Flash-Maya-L-IQ3_S-00002-of-00004.gguf": {
+          "sha256": "351d59366afb7be7dfc3fb7af91281f7ccf00760b17dc45f82090325a7b34f64",
+          "size": 47957222464,
+          "to": "GLM-5.3-Flash Maya-L/GLM-5.3-Flash-Maya-L-IQ3_S-00002-of-00004.gguf"
+        },
+        "Maya-L/GLM-5.3-Flash-Maya-L-IQ3_S-00003-of-00004.gguf": {
+          "sha256": "3685962fdfeaf130b74f98d3ce703ee33d818aa9991725932cb305b7c48db8af",
+          "size": 47305387552,
+          "to": "GLM-5.3-Flash Maya-L/GLM-5.3-Flash-Maya-L-IQ3_S-00003-of-00004.gguf"
+        },
+        "Maya-L/GLM-5.3-Flash-Maya-L-IQ3_S-00004-of-00004.gguf": {
+          "sha256": "1af62cd72de6460c85369d988abbb790d6ec3a97507df51faf9bf32aa2b600d0",
+          "size": 13338053216,
+          "to": "GLM-5.3-Flash Maya-L/GLM-5.3-Flash-Maya-L-IQ3_S-00004-of-00004.gguf"
+        }
+      },
+      "used_for": "GLM-5.3-Flash: the Maya-L shards the engine was validated on (sha256 equal to the validated files' at this revision)",
+      "pinned": "2026-11-15"
+    }
+  },
+  "census_corpus": {
+    "sha256": "b002ff7b141660f74fdd4201aa03eb9ad92a68e0933a9895015e9ab8e0046ee2",
+    "made_by": "tools/llama/corpus.py from strata/maya/llama_cpp's pinned commits and the Flash-Next GGUF's chat template",
+    "used_for": "the routing census's 51 prompts and the served check's census prompts ($TT_MOEOFFLOAD_DATA/census/qwen3.8-flash-next/prompts.jsonl)",
+    "pinned": "2026-11-15"
+  }
+}

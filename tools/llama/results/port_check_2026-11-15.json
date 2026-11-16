@@ -1,0 +1,23 @@
+{
+ "date": "2026-11-15",
+ "what": "the ported producer tools (tools/llama, built against third_party/llama.cpp b72050d03, CUDA) against the data in use",
+ "dump_logits": {
+  "g4_ref": "ids (llama-tokenize --ids --no-bos of the prompt) and logits.f32 bit for bit; all 220 --dump-tensors files bit for bit",
+  "g4_ref_long": "ids and logits.f32 (-c 8192 -b 2048 -ub 2048 --dump-from 4775) bit for bit",
+  "glm_ref": "ids and logits.f32 (-c 512 -b 512 -ub 512) bit for bit",
+  "glm_ref_long": "ids bit for bit; logits.f32 not: two runs with the same arguments (-c 8192 -b 2048 -ub 2048 --dump-from 4486) differ from each other (KL mean 0.0003 and 0.0050 against the one in use, top-1 99.2% and 96.1%); its README does not record the batch sizes, -b/-ub 4096 and 4742 give KL 0.010 / top-1 94.5%"
+ },
+ "routing_census": {
+  "result": "not bit for bit: llama.cpp's census is not reproducible run to run on this host",
+  "evidence": [
+   "the census corpus in use (51 prompts), the recorded command (-c 131072 -t <physical cores> -ub 4096 -b 8192 -ot exps=CPU, GGML_OP_OFFLOAD_MIN_BATCH=2048, --census-decode 256): census.json and census.trace differ; decode tokens 11,500 vs 11,427",
+   "prompt-phase routes identical for all 45 short prompts; the 6 long agent prompts (several 4,096-token ubatches) differ; the greedy decodes diverge (A.code.0 at decode step 3)",
+   "the first prompt alone, three runs: the original 2026-10-23 binary and two runs of the port match the census in use for 241, 145 and 241 of 12,337 routing records: the same binary differs from itself",
+   "top-k expert overlap per layer, port vs in use: prompt top-32 99.4% (min 87.5%), top-64 99.0%; decode top-32 91.9%"
+  ],
+  "census_ids": "--census-ids (new): the 51 prompts' ids equal w4_draft/census/<id>/ids.i32[:n_prompt] (what the served check read before)"
+ },
+ "corpus": "tools/llama/corpus.py renders the same bytes twice (sha256 in pins.json census_corpus); part A equals the corpus in use (45 of 45: the server's ChatTemplate renders as llama-server's /apply-template did); part B is new (pinned public checkouts), B.strata-drafter 4,785 tokens replaces the old long agent prompt",
+ "mtp_runtime": "Xolotl's mtp_pack.py + mtp_rt.py from the fetched tensors: mtp-q2_0.gguf, dense.txt, dense.bin, experts.bin bit for bit; mtp_fetch.py fetch --only pre_fc_norm_embedding into an empty folder: the tensor bit for bit; verify of the fetched set: exit 0",
+ "tokenizer": "Xolotl's strata_tokenizer.py from the GGUF: the pack's 5 tokenizer files bit for bit"
+}
